@@ -73,6 +73,8 @@ target_compile_options(client PRIVATE
   -msse4.2
   -mavx
   -msimd128
+  # emscripten ports
+  -sUSE_BOOST_HEADERS=1
   ${exception_compile_options}
   # warnings
   -Wall
