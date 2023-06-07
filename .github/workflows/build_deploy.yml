@@ -23,7 +23,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: page
-        path: build
+        path: deploy
         if-no-files-found: error
     
   deploy:
