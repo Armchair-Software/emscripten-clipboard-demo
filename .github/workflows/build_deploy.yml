@@ -2,6 +2,11 @@ name: build_and_deploy
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 env:
   BUILD_TYPE: Debug
 
