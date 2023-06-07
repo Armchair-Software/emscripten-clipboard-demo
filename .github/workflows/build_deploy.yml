@@ -13,9 +13,13 @@ jobs:
       
     steps:
     - uses: actions/checkout@v3
+    - run: ls -alh
     - run: mkdir build
     - run: cd build && emcmake cmake ..
     - run: cd build && emmake make -j$(nproc)
+    - run: mkdir deploy
+    - run: mv build/client* deploy
+    - run: mv build/client.html build/index.html
     - uses: actions/upload-artifact@master
       with:
         name: page
@@ -31,6 +35,7 @@ jobs:
       url: ${{steps.deployment.outputs.page_url}}
       
     steps:
+    - run: ls -alh
     - uses: actions/download-artifact@master
       with:
         name: page
