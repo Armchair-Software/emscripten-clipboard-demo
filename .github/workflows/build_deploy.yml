@@ -1,0 +1,48 @@
+name: build_and_deploy
+
+  push:
+    branches: [ "master" ]
+    
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_TYPE: Debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: emscripten/emsdk
+      
+    steps:
+    - uses: actions/checkout@v3
+    #- run: mkdir build
+    #- run: cd build
+    #- run: emcmake cmake ..
+    - run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DEMSCRIPTEN=ON
+    - run: cmake --build build --config ${{env.BUILD_TYPE}}
+    - uses: actions/upload-artifact@master
+      with:
+        name: page
+        path: build
+        if-no-files-found: error
+    
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+      
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: page
+        path: .
+    - uses: actions/configure-pages@v1
+    - uses: actions/upload-pages-artifact@v1
+      with:
+        path: .
+    - id: deployment
+      uses: actions/deploy-pages@main
