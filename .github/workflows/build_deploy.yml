@@ -13,11 +13,9 @@ jobs:
       
     steps:
     - uses: actions/checkout@v3
-    #- run: mkdir build
-    #- run: cd build
-    #- run: emcmake cmake ..
-    - run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DEMSCRIPTEN=ON
-    - run: cmake --build build --config ${{env.BUILD_TYPE}}
+    - run: mkdir build && cd build
+    - run: emcmake cmake ..
+    - run: emmake make -j$(nproc)
     - uses: actions/upload-artifact@master
       with:
         name: page
