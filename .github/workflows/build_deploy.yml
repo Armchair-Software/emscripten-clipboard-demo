@@ -13,7 +13,11 @@ jobs:
       
     steps:
     - uses: actions/checkout@v3
-    - run: mkdir ${{github.workspace}}/build && cd ${{github.workspace}}/build
+    - run: pwd
+    - run: mkdir build
+    - run: ls -alh
+    - run: cd build
+    - run: pwd
     - run: emcmake cmake ..
     - run: emmake make -j$(nproc)
     - uses: actions/upload-artifact@master
