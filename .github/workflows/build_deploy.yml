@@ -37,12 +37,13 @@ jobs:
       url: ${{steps.deployment.outputs.page_url}}
       
     steps:
-    - run: ls -alh
     - uses: actions/download-artifact@master
       with:
         name: page
         path: .
+    - run: ls -alh
     - uses: actions/configure-pages@v1
+    - run: ls -alh
     - uses: actions/upload-pages-artifact@v1
       with:
         path: .
