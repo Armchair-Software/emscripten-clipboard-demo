@@ -17,9 +17,11 @@ jobs:
     - run: mkdir build
     - run: cd build && emcmake cmake ..
     - run: cd build && emmake make -j$(nproc)
+    - run: ls -alh build/
     - run: mkdir deploy
-    - run: mv build/client* deploy
-    - run: mv build/client.html build/index.html
+    - run: mv build/client.* deploy/
+    - run: mv deploy/client.html deploy/index.html
+    - run: ls -alh deploy/
     - uses: actions/upload-artifact@master
       with:
         name: page
