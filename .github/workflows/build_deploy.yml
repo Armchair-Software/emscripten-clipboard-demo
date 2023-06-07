@@ -13,13 +13,13 @@ jobs:
       
     steps:
     - uses: actions/checkout@v3
-    - run: mkdir build && cd build
+    - run: mkdir ${{github.workspace}}/build && cd ${{github.workspace}}/build
     - run: emcmake cmake ..
     - run: emmake make -j$(nproc)
     - uses: actions/upload-artifact@master
       with:
         name: page
-        path: build
+        path: ${{github.workspace}}/build
         if-no-files-found: error
     
   deploy:
