@@ -55,6 +55,20 @@ void set_clipboard_from_imgui(void *user_data [[maybe_unused]], char const *text
 
   event_log.add("Initialised and ready." "\n");
 
+  EM_ASM(
+    if("virtualKeyboard" in navigator) {
+      alert("Virtual keyboard API available");
+      navigator.virtualKeyboard.overlaysContent = true;
+    } else {
+      alert("No virtual keyboard API available");
+      var input = document.createElement("input");
+      input.type = "text";
+      input.value = "testing";
+      input.id = "text_input";
+      document.body.appendChild(input); // put it into the DOM
+    }
+  );
+
   emscripten_set_main_loop_arg(&loop, nullptr, 0, true);                        // loop function, user data, FPS (0 to use browser requestAnimationFrame mechanism), simulate infinite loop
   std::unreachable();                                                           // execution never returns to this point
 }
@@ -77,6 +91,24 @@ auto loop(void*)->void {
 
   ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiCond_FirstUseEver);
   event_log.draw();
+
+
+  ImGuiIO &imgui_io{ImGui::GetIO()};
+  if(imgui_io.WantTextInput) {
+    EM_ASM(
+      if("virtualKeyboard" in navigator) {
+        navigator.virtualKeyboard.show();
+      } else {
+        document.getElementById("text_input").focus();
+      }
+    );
+  } else {
+    EM_ASM(
+      if("virtualKeyboard" in navigator) {
+        navigator.virtualKeyboard.hide();
+      }
+    );
+  }
 
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
