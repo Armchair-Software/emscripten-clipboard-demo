@@ -68,6 +68,7 @@ void set_clipboard_from_imgui(void *user_data [[maybe_unused]], char const *text
       document.body.appendChild(input); // put it into the DOM
     }
   );
+  // TODO: implement input to imgui on change (for swipe etc), see https://stackoverflow.com/questions/574941/best-way-to-track-onchange-as-you-type-in-input-type-text
 
   emscripten_set_main_loop_arg(&loop, nullptr, 0, true);                        // loop function, user data, FPS (0 to use browser requestAnimationFrame mechanism), simulate infinite loop
   std::unreachable();                                                           // execution never returns to this point
