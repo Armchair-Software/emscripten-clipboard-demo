@@ -1,9 +1,11 @@
 #include <iostream>
+
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 #include <imgui/imgui_stdlib.h>
 #include <emscripten_browser_clipboard.h>
+
 #include "render_window.h"
 #include "log_window.h"
 

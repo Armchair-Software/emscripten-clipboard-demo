@@ -1,9 +1,10 @@
-#ifndef RENDER_WINDOW_H_INCLUDED
-#define RENDER_WINDOW_H_INCLUDED
+#pragma once
 
 #include <string>
+
 #include <emscripten/html5.h>
 #include <GLFW/glfw3.h>
+
 #include <vectorstorm/vector/vector2.h>
 
 namespace render {
@@ -32,9 +33,7 @@ public:
   void update_viewport_size();
 
 private:
-  friend EM_BOOL callback_window_resize(int event_type, const EmscriptenUiEvent *event, void *data);
+  friend EM_BOOL callback_window_resize(int event_type, EmscriptenUiEvent const *event, void *data);
 };
 
 }
-
-#endif // RENDER_WINDOW_H_INCLUDED

@@ -1,10 +1,12 @@
 #include "render_window.h"
+
 #include <iostream>
+
 #include <emscripten/val.h>
 
 namespace render {
 
-EM_BOOL callback_window_resize([[maybe_unused]] int event_type, const EmscriptenUiEvent *event, void *data) { // event_type == EMSCRIPTEN_EVENT_RESIZE, docs: https://emscripten.org/docs/api_reference/html5.h.html#id16
+EM_BOOL callback_window_resize([[maybe_unused]] int event_type, EmscriptenUiEvent const *event, void *data) { // event_type == EMSCRIPTEN_EVENT_RESIZE, docs: https://emscripten.org/docs/api_reference/html5.h.html#id16
   /// Handle a browser window resize event
   auto &this_window{*static_cast<window*>(data)};
   this_window.document_body_size.assign(static_cast<unsigned int>(event->documentBodyClientWidth), static_cast<unsigned int>(event->documentBodyClientHeight));

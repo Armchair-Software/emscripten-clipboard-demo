@@ -28,15 +28,15 @@ void log_window::draw() {
   ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
   ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-  const char *buf = Buf.begin();
-  const char *buf_end = Buf.end();
+  char const *buf = Buf.begin();
+  char const *buf_end = Buf.end();
   {
     ImGuiListClipper clipper;
     clipper.Begin(LineOffsets.Size);
     while(clipper.Step()) {
       for(int line_no = clipper.DisplayStart; line_no < clipper.DisplayEnd; line_no++) {
-        const char *line_start = buf + LineOffsets[line_no];
-        const char *line_end = (line_no + 1 < LineOffsets.Size) ? (buf + LineOffsets[line_no + 1] - 1) : buf_end;
+        char const *line_start = buf + LineOffsets[line_no];
+        char const *line_end = (line_no + 1 < LineOffsets.Size) ? (buf + LineOffsets[line_no + 1] - 1) : buf_end;
         ImGui::TextUnformatted(line_start, line_end);
       }
     }
