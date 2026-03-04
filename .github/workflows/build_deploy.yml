@@ -27,7 +27,7 @@ jobs:
     - run: mv build/client.* deploy/
     - run: mv deploy/client.html deploy/index.html
     - run: ls -alh deploy/
-    - uses: actions/upload-artifact@master
+    - uses: actions/upload-artifact@v4
       with:
         name: page
         path: deploy
@@ -42,15 +42,15 @@ jobs:
       url: ${{steps.deployment.outputs.page_url}}
       
     steps:
-    - uses: actions/download-artifact@master
+    - uses: actions/download-artifact@v4
       with:
         name: page
         path: .
     - run: ls -alh
-    - uses: actions/configure-pages@v1
+    - uses: actions/configure-pages@v5
     - run: ls -alh
-    - uses: actions/upload-pages-artifact@v1
+    - uses: actions/upload-pages-artifact@v3
       with:
         path: .
     - id: deployment
-      uses: actions/deploy-pages@main
+      uses: actions/deploy-pages@v4
