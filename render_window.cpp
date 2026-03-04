@@ -1,7 +1,5 @@
 #include "render_window.h"
-
 #include <iostream>
-
 #include <emscripten/val.h>
 
 namespace render {

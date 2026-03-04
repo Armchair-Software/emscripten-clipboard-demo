@@ -178,7 +178,7 @@ world_manager.h
 
 ### 5.3 Include grouping and blank lines
 
-- Keep include groups visually separated by one blank line.
+- Do not insert blank lines between individual includes or between include groups.
 - Avoid extra blank lines inside a single include group.
 - Avoid interleaving groups unless required by platform/compiler constraints.
 - Prefer alphabetical sorting within each include group.
