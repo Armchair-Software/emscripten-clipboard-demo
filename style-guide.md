@@ -1296,4 +1296,3 @@ target_link_libraries(example_tool
 - No general-purpose C++ autoformatter is currently adopted as an enforcement tool for this style guide.
 - Reason: tool behavior (notably whitespace normalization and preprocessor-block handling) conflicts with required Armchair layout conventions, including intentional manual alignment.
 - Use targeted automation scripts for specific checks instead (for example include ordering, `#pragma once`, banned constructs), with human review enforcing remaining style rules.
-___BEGIN___COMMAND_DONE_MARKER___0
