@@ -93,7 +93,6 @@ target_link_options(client PRIVATE
   -sUSE_GLFW=3
   -sMIN_WEBGL_VERSION=2
   -sMAX_WEBGL_VERSION=2
-  -sMIN_WEBGL_VERSION=2
   ${exception_link_options}
   -sEXPORTED_RUNTIME_METHODS=[ccall]
   # don't emit code for node.js etc
