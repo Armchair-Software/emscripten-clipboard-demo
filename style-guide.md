@@ -225,6 +225,22 @@ world_manager.h
 
 - Alignment is allowed for local readability when grouping related declarations.
 - Alignment is encouraged when it clearly improves readability.
+- In manually aligned blocks, keep opening delimiters attached to the preceding token (`name{`, `fn(`), not detached by alignment spaces.
+- Place alignment padding inside the affected delimiters where needed, not between the identifier and its opening delimiter.
+
+Example (avoid):
+
+```cpp
+bool show_log_window{true};
+bool show_console   {true};
+```
+
+Example (preferred):
+
+```cpp
+bool show_log_window{true};
+bool show_console{   true};
+```
 
 ### 6.6 Line length policy and exceptions
 
