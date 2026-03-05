@@ -419,6 +419,9 @@ for(auto const &[name, value] : my_map) {
   - `type *ptr`
   - `type &ref`
   - `type const &value`
+- When there is no declarator name (for example in type-only contexts such as template arguments, function type signatures, or cast targets), no trailing space is added after the symbol:
+  - `type const&`
+  - `type*`
 
 ### 8.6 Template angle bracket spacing
 
