@@ -870,10 +870,11 @@ size_t const count{values.size()};
 double const magnitude{std::abs(delta)};
 ```
 
-### 13.8 Unused parameter naming
+### 13.8 Unused names (parameters and structured bindings)
 
 - Keep unused parameter names present but commented inline in definitions:
   - `do_something(int /*value*/)`
+- For unused structured-binding elements, bind the unused part as `_` instead of using `(void)name` casts after binding.
 
 Example:
 
@@ -881,6 +882,13 @@ Example:
 void write_metric(std::string const &name, int /*sample_count*/) {
   metrics.emplace_back(name);
 }
+
+auto const &[key, unused_value]{entry}; // avoid
+(void)unused_value;
+use(key);
+
+auto const &[key, _]{entry};            // preferred
+use(key);
 ```
 
 ### 13.9 Function grouping and spacing
