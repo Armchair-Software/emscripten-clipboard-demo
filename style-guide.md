@@ -332,6 +332,9 @@ case mode_type::b:
 
 - Prefer a closing namespace comment for non-trivial scopes:
   - `} // namespace module::submodule`
+- When closing an anonymous namespace, use an explicit comment such as:
+  - `} // anonymous namespace`
+  - `} // unnamed namespace`
 - Small/local namespaces may omit this when still clear.
 
 ### 7.5 Lambda brace style
