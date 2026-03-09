@@ -1168,14 +1168,26 @@ Example:
 - Catch formatting uses attached control parentheses (`catch(...)`).
 - Catch by `const &` for exception types unless mutation is required.
 - Keep catch handlers focused: log context, clean up, and return/propagate.
+- When exception handling applies to the whole function body, prefer function-level try/catch syntax over wrapping the entire body in an inner `try` block.
 
 Example:
 
 ```cpp
-try {
+auto run_job_inner_try()->bool {          // avoid
+  try {
+    run();
+    return true;
+  } catch(std::exception const &e) {
+    logger << "ERROR: run failed: " << e.what() << std::endl;
+    return false;
+  }
+}
+
+auto run_job()->bool try {                // preferred
   run();
+  return true;
 } catch(std::exception const &e) {
-  logger << "ERROR: run failed: " << e.what();
+  logger << "ERROR: run failed: " << e.what() << std::endl;
   return false;
 }
 ```
@@ -1184,6 +1196,15 @@ try {
 
 - Log failures with actionable context (operation, key identifiers, error text).
 - Prefer consistent severity prefixes (`ERROR`, `WARNING`, `DEBUG`) matching project conventions.
+- For console and file stream output, prefer `std::endl` over `'\n'`/`"\n"` by default.
+- Use `'\n'`/`"\n"` only when there is a specific reason (for example avoiding flush behaviour or optimising high-volume output paths).
+
+Example:
+
+```cpp
+logger << "ERROR: upload failed for chunk " << chunk_id << std::endl;
+bulk_log << line << '\n'; // allowed when non-flushing output is intentional
+```
 
 ### 19.3 Assertions and defensive checks
 
