@@ -453,11 +453,37 @@ for(auto const &[name, value] : my_map) {
 
 ### 8.8 Multi-line comma-separated list formatting
 
-- For function parameter lists and similar call-like constructs, continuation alignment under the opening `(` is acceptable and common.
+- For function declarations/definitions, keep the first parameter on the same line as the function name whenever practical.
+- Do not force a line break immediately after `(` for short or medium-length signatures if it adds clutter.
+- Break parameter lists only when length/complexity genuinely improves readability.
+- When a parameter list is wrapped, align continuation parameters under the first parameter (or a consistent readable anchor on that line).
+- Keep the closing `)` on the same line as the final parameter unless a specific readability constraint requires otherwise.
 - For most other brace-based lists (especially aggregate/initializer content), prefer:
   - opening brace on the introducing line
   - one element per subsequent line
   - one indentation level for each element
+
+Example (avoid):
+
+```cpp
+unsigned int get_named_node_index(
+  std::vector<std::string> const &node_names,
+  std::string_view const node_name,
+  std::string_view const node_kind
+) {
+  return 0;
+}
+```
+
+Example (preferred):
+
+```cpp
+unsigned int get_named_node_index(std::vector<std::string> const &node_names,
+                                  std::string_view const node_name,
+                                  std::string_view const node_kind) {
+  return 0;
+}
+```
 
 ## 9. Naming and Case Conventions
 
