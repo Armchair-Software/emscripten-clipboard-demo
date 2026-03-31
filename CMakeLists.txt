@@ -60,6 +60,7 @@ add_executable(client
 )
 
 target_link_libraries(client
+  PRIVATE embind
 )
 
 target_compile_options(client PRIVATE
@@ -86,7 +87,6 @@ target_compile_options(client PRIVATE
 target_link_options(client PRIVATE
   ${opt_and_debug_linker_options}
   -lwebsocket.js
-  --bind
   -sALLOW_MEMORY_GROWTH=1
   -sWASM_BIGINT
   -sELIMINATE_DUPLICATE_FUNCTIONS=1
