@@ -555,11 +555,18 @@ unsigned int get_named_node_index(std::vector<std::string> const &node_names,
 - It is encouraged for entry points and callback-heavy signatures.
 - Prefer direct return type syntax when it is shorter and clearer.
 
-### 10.3 Reference and const placement style
+### 10.3 Reference, const, and constexpr placement style
 
 - Use east-const with left-bound reference/pointer symbols:
   - `type const &value`
   - `type *ptr`
+- For object declarations, place `constexpr` alongside `const` after the type:
+  - `unsigned int constexpr max_threads{128};`
+  - `auto constexpr timeout{5s};`
+- Do not write west-`constexpr` object declarations such as `constexpr unsigned int max_threads{128};`.
+- For function declarations/definitions, `constexpr` remains a function specifier and stays before the return type in the usual position:
+  - `constexpr auto has_flag(render_flags value, render_flags flag)->bool`
+  - `inline constexpr bool empty() const`
 
 ### 10.4 Declaration ordering inside classes
 
@@ -600,6 +607,7 @@ Example:
 ```cpp
 static std::chrono::seconds constexpr update_interval{5s};
 std::string const &name_ref{source.name};
+constexpr auto has_flag(render_flags value, render_flags flag)->bool;
 ```
 
 ### 10.9 Integer signedness defaults
