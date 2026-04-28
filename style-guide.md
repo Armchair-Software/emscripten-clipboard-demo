@@ -554,6 +554,10 @@ unsigned int get_named_node_index(std::vector<std::string> const &node_names,
 - Trailing return style is allowed but not preferred by default.
 - It is encouraged for entry points and callback-heavy signatures.
 - Prefer direct return type syntax when it is shorter and clearer.
+- Do not add a trailing return type when the return type is likely to be inferred correctly and the annotation adds no real clarity.
+- When a trailing return type is used, write it with no spaces around `->`:
+  - `auto f()->T`
+  - `[](int value)->float {`
 
 ### 10.3 Reference, const, and constexpr placement style
 
@@ -1045,13 +1049,22 @@ private:
 
 - Follow normal function formatting for lambda parameters and return type annotations.
 - Omit empty `()` for parameterless lambdas (modern C++ style).
-- Do not place a space before a lambda body opening brace (`[]{`, `[](int v){}`).
+- If a lambda has no trailing return type, do not place a space before the body opening brace (`[]{`, `[](int v){}`).
+- In the no-trailing-return form, keep the parameter list, when present, attached directly to the opening brace:
+  - `[](int value){`
+- If a lambda has a trailing return type, keep `)->type` compact with no spaces around `->`, and use a single ordinary space before the body opening brace:
+  - `[](size_t count)->float {`
+- Do not specify a lambda trailing return type unless inference is insufficient or the annotation materially improves clarity.
 
 Example:
 
 ```cpp
 auto tick{[]{
   return true;
+}};
+
+auto percentage{[this](size_t count)->float {
+  return total == 0 ? 0.0f : static_cast<float>(count) / static_cast<float>(total);
 }};
 ```
 
@@ -1062,7 +1075,7 @@ auto tick{[]{
 
 ### 16.4 Callback conventions
 
-- Use trailing return types on callbacks when clarity improves (especially in complex signatures).
+- Use trailing return types on callbacks only when they are needed or materially improve clarity (especially in complex signatures).
 - Keep callback side effects explicit and small where possible.
 
 ## 17. Attributes, Macros, and Preprocessor
