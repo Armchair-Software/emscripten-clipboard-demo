@@ -1258,6 +1258,25 @@ assert(buffer_size > 0 && "buffer_size must be positive in upload path");
 - Avoid ambiguous error text that omits operation context.
 - Make error messages unique where practical so origin can be searched directly in code.
 
+### 19.5 Program exit status from `main`
+
+- When returning from `main`, use `EXIT_SUCCESS` for normal success and `EXIT_FAILURE` for generic failure.
+- Do not return bare numeric `0` for success or bare numeric `1` for generic failure.
+- Additional named/specific exit codes may be introduced where the program has a documented need to signal distinct outcomes.
+
+Example:
+
+```cpp
+auto main()->int {
+  if(!initialise()) {
+    return EXIT_FAILURE;
+  }
+
+  run();
+  return EXIT_SUCCESS;
+}
+```
+
 ## 20. CMakeLists.txt Style (Brief)
 
 ### 20.1 Indentation and list formatting
