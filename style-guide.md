@@ -684,7 +684,7 @@ constexpr auto has_flag(render_flags value, render_flags flag)->bool {
 - Use brace initialization as the default when a declaration is intentionally initialized, as opposed to `=` initialisation.
 - This applies to scalars, class types, aggregates, containers, and temporaries where practical.
 - Do not add empty braces when they are semantically redundant.
-- If omission would leave a value uninitialized and a specific default value is intended, prefer spelling that value explicitly inside the braces rather than relying on empty braces.
+- If omission would leave a value uninitialized and a specific default value is intended, spell that value explicitly inside the braces rather than relying on empty braces; this does not endorse redundant empty-brace default construction where omission is equivalent.
 - Existing declaration-site `=` initialization in legacy files is non-idiomatic and should be migrated when touched.
 
 Example:
@@ -945,7 +945,7 @@ Example:
 ```cpp
 void write_metric(std::string const &name, int sample_count);
 
-void write_metric(std::string const &name, int /*sample_count*/) {
+void write_metric(std::string const &name, int const /*sample_count*/) {
   metrics.emplace_back(name);
 }
 
