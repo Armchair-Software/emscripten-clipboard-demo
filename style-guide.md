@@ -681,16 +681,33 @@ constexpr auto has_flag(render_flags value, render_flags flag)->bool {
 
 ### 11.1 Uniform initialization (house preference: universal braces)
 
-- Use brace initialization as the default for all declarations.
+- Use brace initialization as the default when a declaration is intentionally initialized, as opposed to `=` initialisation.
 - This applies to scalars, class types, aggregates, containers, and temporaries where practical.
+- Do not add empty braces when they are semantically redundant.
+- If omission would leave a value uninitialized and a specific default value is intended, prefer spelling that value explicitly inside the braces rather than relying on empty braces.
 - Existing declaration-site `=` initialization in legacy files is non-idiomatic and should be migrated when touched.
 
 Example:
 
 ```cpp
-int constexpr retries{3};
+int count{0};
+std::vector<uint8_t> bytes;
 std::string const name{"sample"};
 auto constexpr timeout{5s};
+```
+
+Avoid:
+
+```cpp
+int count{};
+std::vector<uint8_t> bytes{};
+```
+
+Prefer:
+
+```cpp
+int count{0};
+std::vector<uint8_t> bytes;
 ```
 
 ### 11.2 Assignment vs initialization distinctions
@@ -902,24 +919,32 @@ void push(T&& value) {
 ### 13.7 Standard vs C library symbol usage
 
 - Prefer C++ standard-library function symbols with `std::` qualification (for example `std::abs` rather than `abs`).
-- Do not force `std::` qualification for type names where house style prefers unqualified forms (for example use `size_t`, not `std::size_t`).
+- Do not force `std::` qualification for type names where house style prefers unqualified forms.
+- Prefer `size_t`, `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t`, and related fixed-width aliases without `std::` qualification.
+- Write `size_t`, not `std::size_t`, and `uint8_t`, not `std::uint8_t`.
 
 Example:
 
 ```cpp
 size_t const count{values.size()};
+uint8_t const flags{0b1010'0001};
 double const magnitude{std::abs(delta)};
 ```
 
 ### 13.8 Unused names (parameters and structured bindings)
 
-- Keep unused parameter names present but commented inline in definitions:
-  - `do_something(int /*value*/)`
+- In declarations, keep the ordinary parameter name:
+  - `void do_something(int value);`
+- In definitions, keep unused parameter names present but commented inline:
+  - `void do_something(int /*value*/)`
+- Do not suppress unused function parameters with `(void)value` inside the function body.
 - For unused structured-binding elements, bind the unused part as `_` instead of using `(void)name` casts after binding.
 
 Example:
 
 ```cpp
+void write_metric(std::string const &name, int sample_count);
+
 void write_metric(std::string const &name, int /*sample_count*/) {
   metrics.emplace_back(name);
 }
@@ -1049,10 +1074,10 @@ private:
 
 - Follow normal function formatting for lambda parameters and return type annotations.
 - Omit empty `()` for parameterless lambdas (modern C++ style).
-- If a lambda has no trailing return type, do not place a space before the body opening brace (`[]{`, `[](int v){}`).
-- In the no-trailing-return form, keep the parameter list, when present, attached directly to the opening brace:
+- Do not place a space before a lambda body opening brace (`[]{`, `[](int v){}`).
+- If a lambda has no trailing return type, keep the closing `]` or `)` (if used) attached directly to the opening brace:
   - `[](int value){`
-- If a lambda has a trailing return type, keep `)->type` compact with no spaces around `->`, and use a single ordinary space before the body opening brace:
+- If a lambda has a trailing return type, keep `)->type` compact with no spaces around `->`, and keep the single ordinary body-opening space before `{`:
   - `[](size_t count)->float {`
 - Do not specify a lambda trailing return type unless inference is insufficient or the annotation materially improves clarity.
 
