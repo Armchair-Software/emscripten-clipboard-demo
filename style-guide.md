@@ -1230,8 +1230,16 @@ Example:
 
 - Do not remove existing comments unless they add no value.
 - Commented code may be kept intentionally when it conveys useful context (for example illustrative alternatives, defaulted options that may be toggled later, or documented integration variants).
+- When commenting out code, place `//` directly before the code with no intervening space; the usual space after `//` applies to prose comments, not disabled code.
 - If commented code is intentionally retained, keep it accurate and legible, and prefer a brief nearby note when intent is not obvious.
 - Remove stale commented code only when it is clearly obsolete or misleading.
+
+Example:
+
+```cpp
+// enable this while diagnosing renderer setup
+//renderer.enable_debug_output();
+```
 
 ## 19. Error Handling and Diagnostics
 
