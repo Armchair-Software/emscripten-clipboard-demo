@@ -1016,8 +1016,24 @@ private:
 ### 14.3 Constructor and destructor conventions
 
 - Prefer in-class member defaults plus constructor initialization lists.
-- Use `explicit` on single-argument constructors unless implicit conversion is intentionally desired.
+- Do not add `explicit` mechanically to every single-argument constructor.
+- Use `explicit` when implicit construction creates a credible risk of an unwanted or misleading conversion, such as when the argument could plausibly be mistaken for the constructed value at a call site.
+- Omit `explicit` when the argument and constructed types have clearly distinct roles and implicit conversion presents no realistic risk of confusion or incorrect overload selection.
 - Keep constructors focused on establishing valid object state.
+
+Example:
+
+```cpp
+class percentage {
+public:
+  explicit percentage(float value);      // prevents accidental numeric conversion
+};
+
+class renderer {
+public:
+  renderer(platform_context &context);    // distinct types; no credible confusion
+};
+```
 
 ### 14.4 Rule of 0/3/5 defaults
 
