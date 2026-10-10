@@ -636,6 +636,7 @@ for(size_t i{0}; i != item_count; ++i) {
 
 - Prefer scoped enums (`enum class`) over unscoped enums.
 - Use lowercase snake_case names for enum types and enumerators.
+- Place each enumerator on its own line; never combine multiple enumerators on one line.
 - If an enum is stored/transmitted/packed, specify an explicit underlying type sized to the value range (for example `uint8_t`).
 - For purely internal enums without storage/ABI constraints, an explicit underlying type is optional.
 - Convert enums explicitly when integer conversion is required (`static_cast`), rather than relying on implicit conversion.
