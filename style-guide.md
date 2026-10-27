@@ -1096,6 +1096,8 @@ public:
   - `[](int value){`
 - If a lambda has a trailing return type, keep `)->type` compact with no spaces around `->`, and keep the single ordinary body-opening space before `{`:
   - `[](size_t count)->float {`
+- For a lambda kept entirely on one line, do not add spaces immediately inside the body braces:
+  - `[&](auto const &plane){return plane.contains(point);}`
 - Do not specify a lambda trailing return type unless inference is insufficient or the annotation materially improves clarity.
 
 Example:
