@@ -1,1 +1,10 @@
-build
+obj
+bin
+*.depend
+*.layout
+config.ini
+Thumbs.db
+.DS_Store
+git_version.h
+libvoxelstorm_update.lock
+.codex
